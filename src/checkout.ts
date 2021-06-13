@@ -7,17 +7,29 @@ enum Prices {
 };
 
 export const checkout = (basket: string[]) => {
-  const total = basket.reduce((acc, item) => {
+  let lastBogofItem = 0;
+  let orangeCount = 0;
+
+  const total = basket.sort().reduce((acc, item) => {
     switch(item) {
       case Orange:
-        acc += Prices[item];
+        if(orangeCount >= 2) {
+          orangeCount = 0;
+        } else {
+          orangeCount += 1;
+          acc += Prices[item];
+        }
         break;
       case Apple:
-        acc += Prices[item];
+        if(lastBogofItem >= 1){ 
+          lastBogofItem = 0;
+        } else {
+          lastBogofItem += 1; 
+          acc += Prices[item];
+        }
         break;
     }
     return acc;
-
   }, 0);
 
   return total.toFixed(2);
