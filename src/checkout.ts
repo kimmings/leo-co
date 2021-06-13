@@ -7,7 +7,7 @@ enum Prices {
 };
 
 export const checkout = (basket: string[]) => {
-  let lastBogofItem = 0;
+  let appleCount = 0;
   let orangeCount = 0;
 
   const total = basket.sort().reduce((acc, item) => {
@@ -21,10 +21,10 @@ export const checkout = (basket: string[]) => {
         }
         break;
       case Apple:
-        if(lastBogofItem >= 1){ 
-          lastBogofItem = 0;
+        if(appleCount >= 1){ 
+          appleCount = 0;
         } else {
-          lastBogofItem += 1; 
+          appleCount += 1; 
           acc += Prices[item];
         }
         break;
